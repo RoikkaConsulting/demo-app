@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="0697b8dc-3d42-4c00-b5bb-d36560a69db2" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="mule-demo-appFlow" doc:id="07dc56de-b26f-4ad1-9179-d28f5103971c" >
+		<http:listener doc:name="Listener" doc:id="73bf85ae-50c3-4032-a32b-78c9cf075a9b" config-ref="HTTP_Listener_config" path="/country"/>
+		<set-variable value="#[attributes.queryParams.'code']" doc:name="Set Variable" doc:id="58a42b87-7ac0-4b76-a43d-36c1052b428b" variableName="country"/>
+		<choice doc:name="Choice" doc:id="b9651ea2-05eb-4e9b-b6a3-24dfe9ac779a" >
+			<when expression="#[vars.country == 'UK']">
+				<set-payload value="Currency is Pound" doc:name="Set Payload" doc:id="8575068d-1414-4d72-8594-2cff29e698d5" />
+				<logger level="INFO" doc:name="Currency is Pound Logged!" doc:id="f383771b-5860-4561-ba94-13352818786c" message="#[payload]" />
+			</when>
+			<otherwise>
+				<set-payload value="Currency is Rupee" doc:name="Set Payload" doc:id="addc2f36-a886-4ada-8929-1efbc1daddb2" />
+				<logger level="INFO" doc:name="Currency is Rupee Logged!" doc:id="85f35099-5b75-4637-8c05-42d267b4e611" message="#[payload]" />
+			</otherwise>
+		</choice>
+	</flow>
+</mule>
