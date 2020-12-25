@@ -15,6 +15,10 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 				<set-payload value="Currency is Pound" doc:name="Set Payload" doc:id="8575068d-1414-4d72-8594-2cff29e698d5" />
 				<logger level="INFO" doc:name="Currency is Pound Logged!" doc:id="f383771b-5860-4561-ba94-13352818786c" message="#[payload]" />
 			</when>
+			<when expression="#[vars.country == 'AUS']">
+				<set-payload value="Currency is Australian Dollar" doc:name="Set Payload" doc:id="0368928b-dc55-4d97-aff5-7a32e7f6ac91" />
+				<logger level="INFO" doc:name="Currency is Australian Dollar Logged!" doc:id="c882e03f-fce1-44b2-8439-feb0b4c8cbd5" message="#[payload]" />
+			</when>
 			<otherwise>
 				<set-payload value="Currency is Rupee" doc:name="Set Payload" doc:id="addc2f36-a886-4ada-8929-1efbc1daddb2" />
 				<logger level="INFO" doc:name="Currency is Rupee Logged!" doc:id="85f35099-5b75-4637-8c05-42d267b4e611" message="#[payload]" />
